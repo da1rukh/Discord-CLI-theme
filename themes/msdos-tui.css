@@ -1,0 +1,161 @@
+/**
+ * @name MS-DOS Amber System24
+ * @description Spotify-compatible TUI Discord theme based on the system24 architecture.
+ * @version 0.2.0
+ * @source https://github.com/refact0r/system24
+ */
+
+@import url("https://refact0r.github.io/system24/build/system24.css");
+
+/* system24 is the layout engine; these are the project-specific controls. */
+:root {
+  --colors: on;
+  --font: "DM Mono", "Cascadia Mono", "Consolas", monospace;
+  --code-font: "DM Mono", "Cascadia Mono", "Consolas", monospace;
+  --font-weight: 400;
+  --gap: 8px;
+  --divider-thickness: 2px;
+  --border-thickness: 1px;
+  --animations: on;
+  --unrounding: on;
+  --round-pfp: on;
+  --remove-pfp-decor: off;
+  --small-user-panel: on;
+  --custom-spotify-bar: on;
+  --ascii-titles: on;
+  --ascii-loader: off;
+  --panel-labels: on;
+  --top-bar-height: 8px;
+  --top-bar-title-position: left;
+  --subtle-top-bar-title: on;
+
+  /* Shared Spotify/Discord accent. */
+  --tui-orange: #ff8c42;
+  --tui-orange-bright: #ffb27a;
+  --tui-orange-muted: #b86532;
+  --tui-line: #8f4f26;
+  --tui-selection: #5a321f;
+  --tui-white: #e4e4e4;
+  --tui-muted: #8f8f8f;
+  --tui-black: #000;
+
+  --text-0: var(--tui-black);
+  --text-1: var(--tui-white);
+  --text-2: #d0d0d0;
+  --text-3: #b5b5b5;
+  --text-4: var(--tui-orange-muted);
+  --text-5: #666;
+
+  --bg-1: #242424;
+  --bg-2: #141414;
+  --bg-3: #090909;
+  --bg-4: var(--tui-black);
+  --hover: color-mix(in srgb, var(--tui-orange) 12%, transparent);
+  --active: color-mix(in srgb, var(--tui-orange) 22%, transparent);
+  --active-2: color-mix(in srgb, var(--tui-orange) 32%, transparent);
+  --message-hover: var(--hover);
+
+  --accent-1: var(--tui-orange-bright);
+  --accent-2: var(--tui-orange);
+  --accent-3: var(--tui-orange);
+  --accent-4: var(--tui-orange-bright);
+  --accent-5: #d9672c;
+  --accent-new: var(--tui-orange);
+  --mention: linear-gradient(to right, color-mix(in srgb, var(--tui-orange) 18%, transparent), transparent 70%);
+  --mention-hover: linear-gradient(to right, color-mix(in srgb, var(--tui-orange) 26%, transparent), transparent 70%);
+  --reply: linear-gradient(to right, color-mix(in srgb, var(--tui-white) 10%, transparent), transparent 70%);
+  --reply-hover: linear-gradient(to right, color-mix(in srgb, var(--tui-white) 16%, transparent), transparent 70%);
+
+  --online: #79b86b;
+  --dnd: #d45500;
+  --idle: var(--tui-orange);
+  --streaming: #9b7bd8;
+  --offline: #666;
+  --border-light: color-mix(in srgb, var(--tui-orange) 35%, transparent);
+  --border: color-mix(in srgb, var(--tui-orange) 55%, transparent);
+  --border-hover: var(--tui-orange);
+  --button-border: color-mix(in srgb, var(--tui-orange) 60%, transparent);
+}
+
+/* Keep the Home/Friends surface readable; the runtime adds data-tui-view. */
+#app-mount[data-tui-view="home"] {
+  --font: inherit;
+  --code-font: inherit;
+  --colors: off;
+  --accent-1: #5865f2;
+  --accent-2: #5865f2;
+  --accent-3: #5865f2;
+  --bg-1: #4f545c;
+  --bg-2: #2f3136;
+  --bg-3: #202225;
+  --bg-4: #18191c;
+  --text-1: #f2f3f5;
+  --text-2: #dcddde;
+  --text-3: #b9bbbe;
+  --text-4: #72767d;
+}
+
+/* Neutral Discord controls not covered by system24 tokens. */
+#app-mount [role="textbox"],
+#app-mount input,
+#app-mount textarea {
+  font-family: var(--font) !important;
+}
+
+#app-mount [class*="channelTextArea"] [class*="placeholder"]::before {
+  content: "> ";
+  color: var(--tui-orange);
+}
+
+#app-mount [class*="channelTextArea"] [class*="scrollableContainer"] {
+  border: var(--border-thickness) solid var(--tui-line);
+  background: var(--tui-black);
+}
+
+#app-mount [class*="channelTextArea"] [role="textbox"] {
+  color: var(--tui-white);
+  caret-color: var(--tui-orange);
+}
+
+/* Visible server rail and icons; do not flatten Discord's image/mask geometry. */
+#app-mount[data-tui-view="server"] [class*="guilds"] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  background: var(--tui-black) !important;
+  border-inline-end: var(--border-thickness) solid var(--tui-line);
+}
+
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="scroller"],
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="listItem"],
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="wrapper"],
+#app-mount[data-tui-view="server"] [class*="guilds"] img,
+#app-mount[data-tui-view="server"] [class*="guilds"] svg,
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="blobContainer"] {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#app-mount[data-tui-view="server"] [class*="guilds"] img,
+#app-mount[data-tui-view="server"] [class*="guilds"] svg,
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="blobContainer"] {
+  display: block !important;
+  filter: none !important;
+}
+
+/* Home must not inherit terminal message/card overrides. */
+#app-mount[data-tui-view="home"] [class*="messageContent"],
+#app-mount[data-tui-view="home"] [class*="markup"],
+#app-mount[data-tui-view="home"] [class*="member"],
+#app-mount[data-tui-view="home"] [class*="reaction"] {
+  font-family: inherit !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #app-mount *,
+  #app-mount *::before,
+  #app-mount *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

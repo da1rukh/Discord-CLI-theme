@@ -1,0 +1,92 @@
+/*
+ * MS-DOS TUI runtime bridge for Vencord.
+ *
+ * A CSS theme cannot execute JavaScript. Load themes/msdos-tui-runtime.js as a
+ * Vencord CustomJS/userscript or package it as a local plugin. It adds:
+ *   #app-mount[data-tui-view="home"]
+ *   #app-mount[data-tui-view="server"]
+ *
+ * The home view is intentionally excluded from terminal component overrides.
+ */
+
+/* Never apply server/channel overrides to Discord Home, Friends, Nitro, Shop or Quests. */
+#app-mount[data-tui-view="home"] [class*="guilds"],
+#app-mount[data-tui-view="home"] [class*="sidebar"],
+#app-mount[data-tui-view="home"] [class*="chat"],
+#app-mount[data-tui-view="home"] [class*="membersWrap"] {
+  color: revert-layer;
+  background: revert-layer;
+  border-color: revert-layer;
+}
+
+#app-mount[data-tui-view="home"] [class*="membersWrap"] [class*="member"],
+#app-mount[data-tui-view="home"] [class*="reaction"],
+#app-mount[data-tui-view="home"] [class*="messageContent"] {
+  color: revert-layer !important;
+  background: revert-layer !important;
+  border-color: revert-layer !important;
+}
+
+/* The server rail is always kept visible; this does not affect Home content. */
+#app-mount[data-tui-view="server"] [class*="guilds"] {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: flex !important;
+}
+
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="scroller"],
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="listItem"],
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="wrapper"],
+#app-mount[data-tui-view="server"] [class*="guilds"] img,
+#app-mount[data-tui-view="server"] [class*="guilds"] svg {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="scroller"] {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Keep the actual image/mask layer intact; do not flatten server icons. */
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="avatar"],
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="blobContainer"],
+#app-mount[data-tui-view="server"] [class*="guilds"] [class*="svg"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none;
+}
+
+/* Home fallback: this theme does not recolor Discord's Friends/Home surfaces. */
+#app-mount[data-tui-view="home"] {
+  --tui-bg: #000;
+  --tui-panel: #1e1f22;
+  --tui-panel-alt: #2b2d31;
+  --tui-text: #dbdee1;
+  --tui-text-bright: #f2f3f5;
+  --tui-text-muted: #949ba4;
+  --tui-text-secondary: #b5bac1;
+  --tui-border: #4e5058;
+  --tui-border-bright: #5865f2;
+  --tui-selection: #404249;
+  --tui-panel-text: #dbdee1;
+  --tui-font: inherit;
+}
+
+#app-mount[data-tui-view="home"] [class*="guilds"],
+#app-mount[data-tui-view="home"] [class*="sidebar"],
+#app-mount[data-tui-view="home"] [class*="chat"],
+#app-mount[data-tui-view="home"] [class*="membersWrap"] {
+  font-family: inherit !important;
+}
+
+#app-mount[data-tui-view="home"] [class*="membersWrap"] [class*="member"],
+#app-mount[data-tui-view="home"] [class*="reaction"],
+#app-mount[data-tui-view="home"] [class*="messageContent"],
+#app-mount[data-tui-view="home"] [class*="markup"] {
+  color: revert !important;
+  background: revert !important;
+  border-color: revert !important;
+}
